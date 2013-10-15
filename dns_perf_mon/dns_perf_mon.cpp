@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 
   // Initialize database called thousandeyes with a table
   // for each domain to be queried
-  MySQLQueryHandler *mysql_handler = new MySQLQueryHandler("thousandeyes",dom_str_vec);
+  MySQLQueryHandler *mysql_handler = new MySQLQueryHandler("dns_perf_mon_db",dom_str_vec);
 
   // A container of DNS query handlers
   std::vector<DNSQueryHandler*> dns_handlers;

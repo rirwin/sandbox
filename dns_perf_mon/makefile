@@ -8,10 +8,10 @@ CC=g++
 
 # Be sure to run
 # did sudo make install ... include paths needed....
-# export LD_LIBRARY_PATH=/home/rirwin/Dropbox/thousandeyes/extern/ldns-1.6.16/.libs
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/rirwin/Dropbox/thousandeyes/extern/mysql++/lib/ # should point to /usr/local/lib ??
+# export LD_LIBRARY_PATH=$(LDNS)/.libs
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(MYSQLPP)/lib/ 
 #./configure --with-mysql-lib=/usr/lib/i386-linux-gnu
-#./configure --prefix="/home/rirwin/Dropbox/thousandeyes/extern/mysql++" --with-mysql-lib=/usr/lib/i386-linux-gnu
+#./configure --prefix=$(MYSQLPP) --with-mysql-lib=/usr/lib/i386-linux-gnu
 
 all: dns_perf_mon.o dns_perf_mon
 
