@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <stdio.h>
 #include <assert.h> 
 #include <math.h>
 #include <cfloat>
@@ -309,7 +310,7 @@ public:
     
     return cent_idx;
   }
-
+  /*
   Point gen_bimodal_gauss_pt() {
     vector<double> vals;
     for (int i = 0; i < num_dim; i++) {
@@ -320,7 +321,7 @@ public:
 
     return pt;
   }
-
+  */
 
   Point gen_unif_rnd_pt() {
     vector<double> vals;
@@ -364,7 +365,7 @@ int main(int argc, char* argv[]) {
     cd = new ClusteringDriver(k_centroids_i, round_delta);
 
     // generate pts (uniform) randomly
-    cd->gen_rnd_pts(num_pts, num_dim, rng_seed);
+    cd->gen_unif_rnd_pts(num_pts, num_dim, rng_seed);
     
     // runs until completion
     cd->run();
