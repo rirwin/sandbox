@@ -95,7 +95,7 @@ private:
    * cost of clustering per run used to check if converged and useful
    * for see if clustering with k centroids was a good idea
    */
-  vector<double> clust_costs;
+  vector<double> mean_square_error;
 
   /**
    * number of iterations completed (1 after first iter completed)
@@ -125,18 +125,18 @@ public:
     k = 2;
   }
 
-  double get_final_cost() {
+  double get_mean_square_error() {
 
-    return clust_costs[clust_costs.size()-1];
+    return mean_square_error[mean_square_error.size()-1];
   }
   
   int get_num_rounds() {
 
-    return clust_costs.size()-1;
+    return mean_square_error.size()-1;
   }
 
   void print_round() {
-    assert(clust_costs.size() == num_iter);
+    assert(mean_square_error.size() == num_iter);
 
     if (num_iter == 0) {
       cout << "No rounds yet" << endl << endl;
@@ -154,7 +154,7 @@ public:
     //      cent_i.print_point();
     //    }
 
-    cout << "cost is: " << clust_costs[num_iter-1] << endl;
+    cout << "MSE is: " << mean_square_error[num_iter-1] << endl;
     cout << endl;
 
   }
@@ -162,32 +162,45 @@ public:
   void run() {
 
     perform_initial_association();
-    int prev_cost = clust_costs[clust_costs.size()-1];
+    int prev_cost = mean_square_error[mean_square_error.size()-1];
     perform_round();
-    int curr_cost = clust_costs[clust_costs.size()-1];
+    int curr_cost = mean_square_error[mean_square_error.size()-1];
     while (curr_cost < prev_cost - round_delta) {
       prev_cost = curr_cost;
       perform_round();
-      curr_cost = clust_costs[clust_costs.size()-1];
+      curr_cost = mean_square_error[mean_square_error.size()-1];
     }
   }
-
 
   void perform_initial_association() {
 
     init_centroids();
-    associate_pts();
-    //    print_round();
+    associate_pts(); 
+    calc_mse_last_round();
+    num_iter++;
   }
-
 
   void perform_round() {
 
     recompute_centroids();
     associate_pts();
-    //    print_round();
+    calc_mse_last_round();
+    num_iter++;
   }
 
+  void calc_mse_last_round() {
+
+    assert(mean_square_error.size() == num_iter);
+
+    double mse = 0;
+    for (int pt_i = 0; pt_i < pts.size(); pt_i++) {
+      
+      int cent_idx = assoc[pt_i];
+      double dist = compute_distance(centroids[cent_idx], pts[pt_i]);
+      mse += (dist)*(dist) / num_pts;
+    }
+    mean_square_error.push_back(mse);
+  }
 
 
 
@@ -219,9 +232,6 @@ public:
    */
   void associate_pts() {
 
-    assert(clust_costs.size() == num_iter);
-    clust_costs.push_back(0);
-
     for (int pt_i = 0; pt_i < pts.size(); pt_i++) {
       int cent_idx = get_nearest_centroid_idx(pts[pt_i]);
       assoc[pt_i] = cent_idx;
@@ -234,7 +244,6 @@ public:
     //      assoc[pt_idx] = cent_idx;
     //    }
 
-    num_iter++;
   }
 
 
@@ -305,8 +314,6 @@ public:
     //	min_dist = dist;
     //      }
     //    }
-
-    clust_costs[num_iter] += min_dist;
     
     return cent_idx;
   }
@@ -338,57 +345,27 @@ public:
 
 
 
-struct Result{
-  int rng_seed;
-  int num_pts;
-  int num_dim;
-  int k_centroids;
-  int num_rounds;
-  double final_cost;
-};
-
 int main(int argc, char* argv[]) {
 
   int k_centroids, num_dim, num_pts, rng_seed, num_runs;
   double round_delta;
   
   parse_args(argc, argv, &num_pts, &num_dim, &round_delta, &k_centroids, &rng_seed);
-
-  num_runs = 10;
-  
-  vector<Result> results;
+ 
 
   ClusteringDriver *cd;  
 
-  for (int k_centroids_i = k_centroids;  k_centroids_i < k_centroids + num_runs; k_centroids_i++) {
   
-    cd = new ClusteringDriver(k_centroids_i, round_delta);
+  cd = new ClusteringDriver(k_centroids, round_delta);
 
-    // generate pts (uniform) randomly
-    cd->gen_unif_rnd_pts(num_pts, num_dim, rng_seed);
-    
-    // runs until completion
-    cd->run();
-    Result res;
-    res.num_rounds = cd->get_num_rounds();
-    res.final_cost = cd->get_final_cost();
-    res.num_pts = num_pts;
-    res.num_dim = num_dim;
-    res.k_centroids = k_centroids_i;
-    res.rng_seed = rng_seed;
-    
-    results.push_back(res);
-    cout << "------" << endl;
-    cout << "final cost " << res.final_cost << endl;
-    cout << "num centroids " << res.k_centroids << endl;
-    cout << "num rounds " << res.num_rounds << endl;
-    cout << "------" << endl << endl;
-
-    delete cd;
-  }
-
+  // generate pts (uniform) randomly
+  cd->gen_unif_rnd_pts(num_pts, num_dim, rng_seed);
   
+  // runs until completion
+  cd->run();
 
+  cd->print_round();
+  
   return 0;
 }
 

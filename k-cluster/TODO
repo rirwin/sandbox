@@ -1,0 +1,19 @@
+Implementation:
+
+  Output results to a file specified by user
+
+  Bimodal Gaussian random variables
+
+  Python script driving algorithms
+
+  Plotting in python
+
+  Add to makefile dependencies for debian based systems
+
+  Break this into multiple cpp files
+
+
+Analysis:
+
+  Verify bimodal or gaussian finds 2 or 1 centroids useful in that
+dimension
