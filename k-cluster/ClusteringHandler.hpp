@@ -1,5 +1,6 @@
 #include <vector>
 #include "Point.hpp"
+#include <random>
 
 using namespace std;
 #ifndef _CLUSTERINGHANDLER_HPP
@@ -58,6 +59,12 @@ private:
    */
   double round_delta;
 
+  /**
+   * Gaussian RV stuff
+   */
+  //  std::random_device rd;
+  //  std::mt19937 gen;
+
 public:
 
   ClusteringHandler(int k_a, double round_delta_a) {
@@ -98,14 +105,11 @@ public:
 
     cout << "---- Round " << num_iter << " ---- " << endl;
     cout << "centroids are at: " << endl;
-    for (int i = 0; i < centroids.size(); i++) {
-      centroids[i].print_point();
-    }
-
+   
     // c++-0x, OS X does not have this compiler :(
-    //    for (auto &cent_i : centroids) {
-    //      cent_i.print_point();
-    //    }
+    for (auto &cent_i : centroids) {
+      cent_i.print_point();
+    }
 
     cout << "MSE is: " << mean_square_error[num_iter-1] << endl;
     cout << endl;
@@ -157,7 +161,7 @@ public:
 
 
 
-  void gen_unif_rnd_pts(int num_pts_a, int num_dim_a, int rng_seed_a) {
+  void gen_unif_rnd_indep_dim_pts(int num_pts_a, int num_dim_a, int rng_seed_a) {
 
     num_pts = num_pts_a;
     num_dim = num_dim_a;
@@ -166,7 +170,7 @@ public:
     srand(rng_seed);
     
     for (int i = 0; i < num_pts; i++) {
-      pts.push_back(gen_unif_rnd_pt());
+      pts.push_back(gen_unif_rnd_indep_dim_pt());
     }
     assoc.resize(num_pts);
   }
@@ -190,13 +194,6 @@ public:
       assoc[pt_i] = cent_idx;
     }
 
-    // C++ 0x
-    //    for (auto &pt_i : pts) {
-    //      int pt_idx = &pt_i - &pts[0];
-    //      int cent_idx = get_nearest_centroid_idx(pt_i);
-    //      assoc[pt_idx] = cent_idx;
-    //    }
-
   }
 
 
@@ -217,8 +214,8 @@ public:
     vector<double> sums;
     int ctr = 0;
     sums.resize(num_dim);
-    //    for (auto &i : sums){i = 0;} // c++-0x
-    for (int i = 0; i < sums.size(); i++){sums[i] = 0;}
+
+    for (auto &i : sums){i = 0;} 
 
     for (int pt_i = 0; pt_i < num_pts; pt_i++) {
       if (assoc[pt_i] == cent_idx) {
@@ -249,24 +246,16 @@ public:
 
     double min_dist = DBL_MAX;
     int cent_idx = -1;
-
-    for (int idx = 0; idx < centroids.size(); idx++){
-      double dist = compute_distance(pt, centroids[idx]);
+   
+    // c++ 0x
+    for (auto &cent_i : centroids){
+      auto idx = &cent_i - &centroids[0];
+      double dist = compute_distance(pt, cent_i);
       if (dist < min_dist) {
-	cent_idx = idx;
-	min_dist = dist;
+    	cent_idx = idx;
+    	min_dist = dist;
       }
     }
-
-    // c++ 0x
-    //    for (auto &cent_i : centroids){
-    //      auto idx = &cent_i - &centroids[0];
-    //      double dist = compute_distance(pt, cent_i);
-    //      if (dist < min_dist) {
-    //	cent_idx = idx;
-    //	min_dist = dist;
-    //      }
-    //    }
     
     return cent_idx;
   }
@@ -283,7 +272,7 @@ public:
   }
   */
 
-  Point gen_unif_rnd_pt() {
+  Point gen_unif_rnd_indep_dim_pt() {
     vector<double> vals;
     for (int i = 0; i < num_dim; i++) {
       vals.push_back(rand() % max_pt_val);
@@ -293,6 +282,25 @@ public:
 
     return pt;
   }
+
+  Point gen_gauss_rnd_indep_dim_pt() {
+    vector<double> vals;
+    //    std::random_device rd;
+    //    std::mt19937 gen(rd());
+    int seed = 10;
+    std::default_random_engine gen(seed);
+    std::normal_distribution<> d(0,1); // 0: mean, 1 var
+    
+    for (int i = 0; i < num_dim; i++) {
+      vals.push_back(d(gen));
+      cout << vals[i] << endl;
+    }
+    
+    Point pt(vals);
+
+    return pt;
+  }
+
 
 };
 #endif
