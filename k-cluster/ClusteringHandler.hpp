@@ -60,10 +60,9 @@ private:
   double round_delta;
 
   /**
-   * Gaussian RV stuff
+   * Random generator, used for Gaussian RV
    */
-  //  std::random_device rd;
-  //  std::mt19937 gen;
+  std::default_random_engine gen;
 
 public:
 
@@ -167,7 +166,8 @@ public:
     num_dim = num_dim_a;
     rng_seed = rng_seed_a;
 
-    srand(rng_seed);
+    srand(rng_seed); // TODO replace this
+    std::default_random_engine gen(rng_seed);
     
     for (int i = 0; i < num_pts; i++) {
       pts.push_back(gen_unif_rnd_indep_dim_pt());
@@ -273,9 +273,12 @@ public:
   */
 
   Point gen_unif_rnd_indep_dim_pt() {
-    vector<double> vals;
+    vector<double> vals; 
+
+    // TODO move to class member
+    std::uniform_real_distribution<double> dist(-1*max_pt_val, max_pt_val);
     for (int i = 0; i < num_dim; i++) {
-      vals.push_back(rand() % max_pt_val);
+      vals.push_back(dist(gen));
     }
     
     Point pt(vals);
@@ -285,11 +288,9 @@ public:
 
   Point gen_gauss_rnd_indep_dim_pt() {
     vector<double> vals;
-    //    std::random_device rd;
-    //    std::mt19937 gen(rd());
-    int seed = 10;
-    std::default_random_engine gen(seed);
-    std::normal_distribution<> d(0,1); // 0: mean, 1 var
+
+    // TODO move to class member, parameterize
+     std::normal_distribution<> d(0,1); // 0: mean, 1 var
     
     for (int i = 0; i < num_dim; i++) {
       vals.push_back(d(gen));
