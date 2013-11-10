@@ -60,26 +60,57 @@ private:
   double round_delta;
 
   /**
-   * Random generator, used for Gaussian RV
+   * Random generator
    */
   std::default_random_engine gen;
 
+  /**
+   * Uniform double random 
+   */
+  std::uniform_real_distribution<double> unif_dist;
+  std::uniform_real_distribution<double> unit_unif_dist;
+
+  /**
+   * Normal distribution
+   */
+  std::normal_distribution<> norm_dist; 
+
+  /**
+   * bimodal distance between modes in same dimension
+   */
+  double bimodal_dist;
+
 public:
 
-  ClusteringHandler(int k_a, double round_delta_a) {
+  ClusteringHandler(int k_a, double round_delta_a, int rng_seed_a) {
     k = k_a;
     round_delta = round_delta_a;
     num_iter = 0;
+    rng_seed = rng_seed_a;   
+    gen = std::default_random_engine(rng_seed);
+    norm_dist = std::normal_distribution<>(0,1); // 0: mean, 1 var
+    unif_dist = std::uniform_real_distribution<double>(-1*max_pt_val, max_pt_val);
+    unit_unif_dist = std::uniform_real_distribution<double>(0,1);
+    bimodal_dist = 3;
+  
   }
 
   ClusteringHandler(int k_a) {
     k = k_a;
     num_iter = 0;
+    norm_dist = std::normal_distribution<>(0,1); // 0: mean, 1 var
+    unif_dist = std::uniform_real_distribution<double>(-1*max_pt_val, max_pt_val);
+    unit_unif_dist = std::uniform_real_distribution<double>(0,1);
+    bimodal_dist = 3;
   }
 
   ClusteringHandler() {
     num_iter = 0;
     k = 2;
+    norm_dist = std::normal_distribution<>(0,1); // 0: mean, 1 var
+    unif_dist = std::uniform_real_distribution<double>(-1*max_pt_val, max_pt_val);
+    unit_unif_dist = std::uniform_real_distribution<double>(0,1);
+    bimodal_dist = 3;
   }
 
   ~ClusteringHandler() {}
@@ -160,20 +191,39 @@ public:
 
 
 
-  void gen_unif_rnd_indep_dim_pts(int num_pts_a, int num_dim_a, int rng_seed_a) {
+  void gen_unif_rnd_indep_dim_pts(int num_pts_a, int num_dim_a) {
 
     num_pts = num_pts_a;
     num_dim = num_dim_a;
-    rng_seed = rng_seed_a;
 
-    srand(rng_seed); // TODO replace this
-    std::default_random_engine gen(rng_seed);
-    
     for (int i = 0; i < num_pts; i++) {
       pts.push_back(gen_unif_rnd_indep_dim_pt());
     }
     assoc.resize(num_pts);
   }
+
+  void gen_bimodal_gauss_rnd_indep_dim_pts(int num_pts_a, int num_dim_a) {
+
+    num_pts = num_pts_a;
+    num_dim = num_dim_a;
+
+    for (int i = 0; i < num_pts; i++) {
+      pts.push_back(gen_bimodal_gauss_rnd_indep_dim_pt());
+    }
+    assoc.resize(num_pts);
+  }
+
+  void gen_gauss_rnd_indep_dim_pts(int num_pts_a, int num_dim_a) {
+
+    num_pts = num_pts_a;
+    num_dim = num_dim_a;
+
+    for (int i = 0; i < num_pts; i++) {
+      pts.push_back(gen_gauss_rnd_indep_dim_pt());
+    }
+    assoc.resize(num_pts);
+  }
+
 
   void init_centroids() {
     
@@ -196,11 +246,10 @@ public:
 
   }
 
-
   /**
    * takes current associations and recomputes centroids based on
    * their center
- // uses centroids, pts, assoc, and k to rec
+   * uses centroids, pts, assoc, and k to rec
    */
   void recompute_centroids() {
     for (int i = 0; i < k; i++)
@@ -259,28 +308,28 @@ public:
     
     return cent_idx;
   }
-  /*
-  Point gen_bimodal_gauss_pt() {
+
+  Point gen_bimodal_gauss_rnd_indep_dim_pt() {
     vector<double> vals;
     for (int i = 0; i < num_dim; i++) {
-      vals.push_back(normal());
+      if (unit_unif_dist(gen) > 0.5)
+	vals.push_back(norm_dist(gen) + bimodal_dist/2);
+      else
+	vals.push_back(norm_dist(gen) - bimodal_dist/2);
     }
     
     Point pt(vals);
 
     return pt;
-  }
-  */
+  }  
 
   Point gen_unif_rnd_indep_dim_pt() {
     vector<double> vals; 
 
-    // TODO move to class member
-    std::uniform_real_distribution<double> dist(-1*max_pt_val, max_pt_val);
     for (int i = 0; i < num_dim; i++) {
-      vals.push_back(dist(gen));
+      vals.push_back(unif_dist(gen));
     }
-    
+
     Point pt(vals);
 
     return pt;
@@ -289,11 +338,8 @@ public:
   Point gen_gauss_rnd_indep_dim_pt() {
     vector<double> vals;
 
-    // TODO move to class member, parameterize
-     std::normal_distribution<> d(0,1); // 0: mean, 1 var
-    
     for (int i = 0; i < num_dim; i++) {
-      vals.push_back(d(gen));
+      vals.push_back(norm_dist(gen));
       cout << vals[i] << endl;
     }
     

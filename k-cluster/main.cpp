@@ -30,11 +30,11 @@ int main(int argc, char* argv[]) {
 
   ClusteringHandler *pch;  
   
-  pch = new ClusteringHandler(k_centroids, round_delta);
+  pch = new ClusteringHandler(k_centroids, round_delta, rng_seed);
 
   // generate pts (uniform) randomly
-  pch->gen_unif_rnd_indep_dim_pts(num_pts, num_dim, rng_seed);
-  
+  pch->gen_bimodal_gauss_rnd_indep_dim_pts(num_pts, num_dim);
+
   // runs until completion
   pch->run();
 
