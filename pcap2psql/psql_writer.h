@@ -86,7 +86,7 @@ void insert_rows(PGconn* conn, const char * table, char ** row_vals, int num_row
   PGresult *res;
   char tmp[256];
   int i;
-  buff = malloc(num_rows*256);
+  buff = (char*) malloc(num_rows*256);
 
   sprintf(buff,"INSERT INTO %s values %s,\n", table, row_vals[0]);
   for (i = 1; i < num_rows-1; i++) {

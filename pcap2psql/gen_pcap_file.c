@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 
-#define LINE_LEN 16
-int pkts_to_cap = 10;
+const int LINE_LEN = 16;
+int pkts_to_cap = 25; // TODO make arg
 int pkts_capped = 0;
 
-void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
+
 void print_packet(const struct pcap_pkthdr *header, const u_char *pkt_data);
 
 main(int argc, char **argv) 
@@ -22,6 +22,8 @@ main(int argc, char **argv)
   pcap_t *adhandle;
   char errbuf[PCAP_ERRBUF_SIZE];
   pcap_dumper_t *dumpfile;
+  struct pcap_pkthdr *header;
+  const u_char *pkt_data;
 
   /* check command line */
   if (argc != 2) {
@@ -86,26 +88,17 @@ main(int argc, char **argv)
   pcap_freealldevs(all_devs);
 
   /* Start capture */
-  pcap_loop(adhandle, 0, packet_handler, (unsigned char*) dumpfile);
-  //while (res = pcap_next_ex(fp &header
-  pcap_dump_close(adhandle);
+  while((res = pcap_next_ex( adhandle, &header, &pkt_data)) >= 0 &&
+	pkts_capped < pkts_to_cap){
+
+    print_packet(header, pkt_data);
+    pcap_dump((u_char*)dumpfile, header, pkt_data);
+    pkts_capped++;
+  }
+
+  pcap_dump_close(dumpfile);
 
   return 0;
-
-}
-
-void packet_handler(u_char *dumpfile, const struct pcap_pkthdr *header, const u_char *pkt_data)
-{
-  printf("handling packet\n");
-  /* save packet to dump file */
-  print_packet(header, pkt_data);
-  pcap_dump(dumpfile, header, pkt_data);
-  
-  pkts_capped++;
-  if (pkts_capped >= pkts_to_cap) {
-    pcap_dump_close(dumpfile);
-    exit(0);
-  }
 
 }
 
