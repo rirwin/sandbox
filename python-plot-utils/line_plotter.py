@@ -1,6 +1,7 @@
 import numpy as np
+from pylab import ylim
 import matplotlib.pyplot as plt
-
+import math
 import sys
 
 class LinePlotter:
@@ -18,7 +19,7 @@ class LinePlotter:
         self.plot = None
         self.save_figs =0
         self.my_colors = []#np.zeros(shape=(self.num_vectors))
-        #self.init_plot_colors()
+        self.init_plot_colors()
         self.do_plot()
 
     def check_dims(self,vectors):
@@ -36,24 +37,45 @@ class LinePlotter:
 
     def init_plot_colors(self):
         #np.zeros(shape=(self.num_vectors))
-        self.colors.append('000000')#[0] = self.my_rgb(0.2)
+        #self.colors.append('000000')#[0] = self.my_rgb(0.2)
         #self.my_colors[0] = '000000'#[0] = self.my_rgb(0.2)
+        self.my_colors = []
+        self.my_colors.append('b')
+        self.my_colors.append('g')
+        self.my_colors.append('r')
+        self.my_colors.append('c')
+        self.my_colors.append('m')
+        self.my_colors.append('y')
+        self.my_colors.append('k')
+
+        self.my_linestyles = []
+        self.my_linestyles.append('-')
+        self.my_linestyles.append('--')
+        self.my_linestyles.append('-.')
+        self.my_linestyles.append(':')
+        self.my_linestyles.append('-.')
+        self.my_linestyles.append('--')
+        self.my_linestyles.append('-')
 
     def my_rgb(self, rgb):
         return '000000'
 
     def do_plot(self):
-        ii = np.zeros(shape=(self.num_cols))
+        ii = np.zeros(shape=(int(self.num_cols)))
         for i in range(self.num_cols):
-            ii[i] = (i+0.0)/self.num_cols
+            ii[i] = i#(i+0.0)/self.num_cols
 
         plt.figure()
 
         for vec_i in range(self.num_vectors):
-            self.my_colors = []
-            self.my_colors.append('000000')
-            plt.plot(ii,self.vectors[vec_i],color=self.my_colors[0],label=vec_i)
-
+            plt.plot(ii,self.vectors[vec_i],
+                     color=self.my_colors[vec_i],
+                     label=self.legends_text[vec_i],
+                     linestyle=self.my_linestyles[vec_i])
+        plt.legend(loc='upper left')
+        
+        plt.yscale('log')
+        #plt.ylim((0,10000))
         '''
         plt.suptitle('Multicast Cloud Connectivity vs Node Participation',fontsize=20)#\n 30 nodes, 0.4 communication range')
         plt.plot(ii,mean_res_conn_3s_4r,color='g',linestyle='--',label='Group of 3')
