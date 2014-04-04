@@ -1,0 +1,19 @@
+Forgot to checkpoint in a readme.
+
+http://localhost:8888/start
+
+/
+/run
+/run/init.upgraded
+/run/motd
+/run/nm-dns-dnsmasq.conf
+/run/nm-dhclient-eth0.conf
+/run/udisks
+/run/console
+/run/console/rirwin
+/run/console-kit-daemon.pid
+/run/ConsoleKit
+/run/ConsoleKit/database
+/run/pm-utils
+/run/pm-utils/pm-powersave
+....
