@@ -63,7 +63,7 @@ public:
   }
 
   int get_player_chip_count() {
-    player->get_chip_count();
+    return player->get_chip_count();
   }
 
 protected:
@@ -143,6 +143,8 @@ protected:
       return Game::DEALER_WINS;
     else if (player_hand_value == dealer_hand_value)
       return Game::PUSH;
+    else // If error dealer wins
+      return Game::DEALER_WINS; 
   }
 
   void discard_cards() {
@@ -171,6 +173,8 @@ protected:
       cout << "Double Blackjack: Push.  You get back " << bet << " chips" << endl;
       player->receive_chips(bet);
       return;
+    case Game::UNDETERMINED:
+      return;
     }
   }
 
@@ -189,6 +193,8 @@ protected:
     case Game::PUSH:
       cout << "Push.  You get back " << bet << " chips" << endl;
       player->receive_chips(bet);
+      return;
+    case Game::UNDETERMINED:
       return;
     }
   }

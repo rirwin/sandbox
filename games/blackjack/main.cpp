@@ -53,4 +53,6 @@ bool check_play_again() {
   else {
     cout << "Please enter y or n" << endl;
   }
+
+  return false;
 }

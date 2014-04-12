@@ -50,10 +50,9 @@ public:
   }
 
   bool has_blackjack() {
-    if (cards.size() != 2)
-      return false;
-    if (cards[0]->get_value() + cards[1]->get_value() == 21)
+    if ((cards.size() == 2) && (cards[0]->get_value() + cards[1]->get_value() == 21))
       return true;
+    return false;
   }
 
   void print_cards() {
