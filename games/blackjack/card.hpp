@@ -14,9 +14,9 @@ public:
   // okay since only a small maximum number of players ever
   enum card_state_enum{
     DECK,
-    DEALER_HAND_DOWN,
-    DEALER_HAND_UP,
-    PLAYER_ONE_HAND_UP,
+    DEALER_FACE_DOWN,
+    DEALER_FACE_UP,
+    PLAYER_FACE_UP,
     DISCARD
   };
 
@@ -32,6 +32,10 @@ public:
     suit = suit_;
     level = level_;
     card_state = DECK;
+  }
+
+  void set_card_state(Card::card_state_enum state) {
+    card_state = state;
   }
 
   card_state_enum get_card_state() {

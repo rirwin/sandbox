@@ -13,8 +13,9 @@ int main() {
   int chips = 100;
 
   Game game(3);
-  Card c = game.deal_card();
-  c.print();
+  game.play_new_hand();
+  //Card c = game.deal_card();
+  //c.print();
 
   while(play_again) {
     
