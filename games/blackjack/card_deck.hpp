@@ -25,6 +25,22 @@ public:
     return &cards[next_card++];
   }
 
+  int get_num_cards_left() {
+    return (cards.size() - next_card);
+  }
+
+  void shuffle() {
+    int num_cards = cards.size();
+    for (int i = 0; i < num_cards; i++){
+      int j = rand() % num_cards;
+      Card tmp = cards[i];
+      cards[i] = cards[j];
+      cards[i].set_card_state(Card::DECK);
+    }
+    next_card = 0;
+  }
+
+
 protected:
 
   // collection of cards
@@ -55,14 +71,6 @@ protected:
     cout << " Done printing cards " << endl;
   }
 
-  void shuffle() {
-    int num_cards = cards.size();
-    for (int i = 0; i < num_cards; i++){
-      int j = rand() % num_cards;
-      Card tmp = cards[i];
-      cards[i] = cards[j];
-    }
-  }
 
 };
 

@@ -47,23 +47,30 @@ public:
   }
 
   int get_level() {
-    if (level < 10) 
+    return level;
+  }
+  
+  int get_value() {
+    if (level >= 2 && level <= 10)
       return level;
-    else 
+    if (level >= 11 && level <= 13)
       return 10;
+    else
+      // treat aces as 11 in this function
+      return 11; 
   }
 
   void print() {
     if (level <= 10 && level >= 2)
-      cout << level << suit << endl;
+      cout << level << suit;
     else if (level == 1) 
-      cout << 'A' << suit << endl;
+      cout << 'A' << suit;
     else if (level == 11)
-      cout << 'J' << suit << endl;
+      cout << 'J' << suit;
     else if (level == 12)
-      cout << 'Q' << suit << endl;
+      cout << 'Q' << suit;
     else if (level == 13)
-      cout << 'K' << suit << endl;
+      cout << 'K' << suit;
   }
 
 protected:

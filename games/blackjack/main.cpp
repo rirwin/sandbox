@@ -9,38 +9,35 @@ bool check_play_again();
 
 int main() {
 
+  int num_decks = 3;
+  Game game(num_decks);
+
+  cout << "Welcome to the game of blackjack!" << endl;
+
   bool play_again = true;
-  int chips = 100;
-
-  Game game(3);
-  game.play_new_hand();
-  //Card c = game.deal_card();
-  //c.print();
-
   while(play_again) {
-    
-    // Get input from the player
 
-    // update the world
+    game.play_new_hand();
 
-    // draw graphics
+    int chips = game.get_player_chip_count();
+    cout << "You have " << chips << " chips" << endl;
 
-    // repeat until quite
-    play_again = check_play_again();
+    if (chips > 0)
+      play_again = check_play_again();
+    else {
+      cout << "You are out of chips." << endl;
+      play_again = false;
+    }
   }
 
-  cout << "Thank you for playing" << endl;
+  cout << "Thank you for playing!" << endl;
 
   return 0;
 }
 
 
-
 bool check_play_again() {
 
-  Card c('D',9);
-  //cout << c.get_card_state()<< endl;
-  //cout << Card::DISCARD << endl;
   char input = ' ';
 
   while (input != 'y' && input != 'n') {
