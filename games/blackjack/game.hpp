@@ -35,6 +35,7 @@ public:
   void play_new_hand() {
 
     if (card_deck->get_num_cards_left() < 10) {
+      cout << "--- Shuffling deck ---" << endl;
       card_deck->shuffle();
     }
 

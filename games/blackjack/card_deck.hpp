@@ -15,18 +15,20 @@ public:
 
   CardDeck(int num_decks) {
     add_cards(num_decks);
-    //srand(time(NULL));
+    srand(time(NULL));
     shuffle();
-    next_card = 0;
+    next_card_idx = 0;
   }
 
   Card* deal_card(Card::card_state_enum state) {
-    cards[next_card].set_card_state(state);
-    return &cards[next_card++];
+    Card* next_card = &cards[next_card_idx];
+    next_card->set_card_state(state);
+    next_card_idx++;
+    return next_card;
   }
 
   int get_num_cards_left() {
-    return (cards.size() - next_card);
+    return (cards.size() - next_card_idx);
   }
 
   void shuffle() {
@@ -35,9 +37,10 @@ public:
       int j = rand() % num_cards;
       Card tmp = cards[i];
       cards[i] = cards[j];
+      cards[j] = tmp;
       cards[i].set_card_state(Card::DECK);
     }
-    next_card = 0;
+    next_card_idx = 0;
   }
 
 
@@ -47,7 +50,7 @@ protected:
   vector<Card> cards;
 
   // next card to be dealt
-  int next_card;
+  int next_card_idx;
 
   void add_cards(int num_decks) {
     for (int deck_i = 0; deck_i < num_decks; deck_i++) {
@@ -66,8 +69,10 @@ protected:
 
   void print() {
     cout << " Printing cards " << endl;
-    for (int i = 0; i < cards.size(); i++)
+    for (int i = 0; i < cards.size(); i++) {
       cards[i].print();
+      cout << " ";
+    }
     cout << " Done printing cards " << endl;
   }
 

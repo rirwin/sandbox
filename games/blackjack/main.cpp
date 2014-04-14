@@ -11,7 +11,7 @@ bool check_play_again();
 
 int main() {
 
-  int num_decks = 3;;
+  int num_decks = 1;
   Game game(num_decks);
 
   cout << "Welcome to the game of blackjack!" << endl;
@@ -31,9 +31,7 @@ int main() {
       play_again = false;
     }
   }
-
   cout << "Thank you for playing!" << endl;
-
   
   return 0;
 }

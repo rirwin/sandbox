@@ -3,9 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <stdlib.h>
-#include <cstdlib>
 
 using namespace std;
 
@@ -13,6 +10,8 @@ int get_int_from_user(string prompt, int lower_bound, int upper_bound) {
   
   string raw_input;
   int formatted_input = 0;
+
+  // used for checking if valid input provided
   char* p_end = NULL;
 
   do {
@@ -36,7 +35,7 @@ char get_y_or_n_from_user(string prompt) {
 
   // ensure enter loop and allocated non-garbage value
   char formatted_input = ' ';
-  cin.sync();
+
   while(formatted_input != 'y' && formatted_input != 'n') {
 
     cout << prompt << endl;
