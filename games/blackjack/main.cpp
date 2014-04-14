@@ -11,7 +11,7 @@ bool check_play_again();
 
 int main() {
 
-  int num_decks = 1;
+  int num_decks = 3;
   int shuffle_shoe = 15;
   Game game(num_decks, shuffle_shoe);
 
