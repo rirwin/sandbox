@@ -12,7 +12,8 @@ bool check_play_again();
 int main() {
 
   int num_decks = 1;
-  Game game(num_decks);
+  int shuffle_shoe = 15;
+  Game game(num_decks, shuffle_shoe);
 
   cout << "Welcome to the game of blackjack!" << endl;
 

@@ -20,10 +20,11 @@ public:
     UNDETERMINED // not finished
   };
 
-  Game(int num_decks) {
+  Game(int num_decks, int shoe) {
     card_deck = new CardDeck(num_decks);
     player = new Player(Player::PLAYER);
     dealer = new Player(Player::DEALER);
+    shuffle_shoe = shoe;
   }
 
   ~Game() {
@@ -34,7 +35,7 @@ public:
   
   void play_new_hand() {
 
-    if (card_deck->get_num_cards_left() < 10) {
+    if (card_deck->get_num_cards_left() < shuffle_shoe) {
       cout << "--- Shuffling deck ---" << endl;
       card_deck->shuffle();
     }
@@ -73,14 +74,25 @@ protected:
   Player *player;
   Player *dealer;
   CardDeck *card_deck;
+  int shuffle_shoe;
 
   void deal_initial_cards() {
-    
-    player->receive_card(card_deck->deal_card(Card::PLAYER_FACE_UP));
-    player->receive_card(card_deck->deal_card(Card::PLAYER_FACE_UP));
 
-    dealer->receive_card(card_deck->deal_card(Card::DEALER_FACE_DOWN));
-    dealer->receive_card(card_deck->deal_card(Card::DEALER_FACE_UP));
+    Card *c;
+    c = card_deck->deal_card(Card::PLAYER_FACE_UP);
+    if (c)
+      player->receive_card(c);    
+    c = card_deck->deal_card(Card::PLAYER_FACE_UP);
+    if (c)
+      player->receive_card(c);    
+
+    c = card_deck->deal_card(Card::DEALER_FACE_DOWN);
+    if (c)
+      dealer->receive_card(c);
+    c = card_deck->deal_card(Card::DEALER_FACE_UP);
+    if (c)
+      dealer->receive_card(c);
+
   }
   
   hand_result_enum check_blackjack() {

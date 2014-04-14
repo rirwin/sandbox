@@ -21,6 +21,8 @@ public:
   }
 
   Card* deal_card(Card::card_state_enum state) {
+    if (next_card_idx == cards.size())
+      return NULL;
     Card* next_card = &cards[next_card_idx];
     next_card->set_card_state(state);
     next_card_idx++;
