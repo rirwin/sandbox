@@ -1,12 +1,13 @@
+#ifndef __GAME__
+#define __GAME__
+
 #include <iostream>
 #include "card_deck.hpp"
 #include "card.hpp"
 #include "player.hpp"
+#include "input_helper.hpp"
 
 using namespace std;
-
-#ifndef __GAME__
-#define __GAME__
 
 class Game {
 
@@ -108,12 +109,8 @@ protected:
     bool hit_card = true;
 
     while(player->get_hand_value() < 21 && hit_card) {
-      char input = ' ';
-      while (input != 'y' && input != 'n') {
-	print_table();
-	cout << "Do you want to hit? (y/n)" << endl;
-	cin >> input;
-      }
+      print_table();
+      char input = get_y_or_n_from_user("Do you want to hit? (y/n)");
       if (input == 'y')
 	player->receive_card(card_deck->deal_card(Card::PLAYER_FACE_UP));
       else

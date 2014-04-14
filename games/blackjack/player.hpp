@@ -1,9 +1,11 @@
-#include <iostream>
-
-using namespace std;
-
 #ifndef __PLAYER__
 #define __PLAYER__
+
+#include <iostream>
+#include <stdio.h>
+#include "input_helper.hpp"
+
+using namespace std;
 
 class Player{
 
@@ -34,13 +36,13 @@ public:
   }
   
   int place_bet(){
-    
-    int bet = 0;
-    while (bet < 1 || bet > chips) {
-      cout << "You have " << chips << " chips. What is your bet?" << endl;
-      cout << "Enter an integer between 1 and " << chips << "." <<endl;
-      cin >> bet;
-    }
+
+    char buff[100];
+    sprintf(buff, "You have chips %d. What is your bet?\nEnter an integer between 1 and %d.", chips, chips);
+    string prompt(buff);
+
+    int bet = get_int_from_user(prompt, 1, chips);
+
     chips -= bet;
     return bet;
   }

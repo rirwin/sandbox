@@ -1,9 +1,9 @@
+#ifndef __CARD__
+#define __CARD__
+
 #include <iostream>
 
 using namespace std;
-
-#ifndef __CARD__
-#define __CARD__
 
 class Card {
 

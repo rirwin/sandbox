@@ -1,15 +1,17 @@
-
 #include <iostream>
+#include <vector>
+
 #include "card.hpp"
 #include "game.hpp"
-#include <vector>
+#include "input_helper.hpp"
+
 using namespace std;
 
 bool check_play_again();
 
 int main() {
 
-  int num_decks = 3;
+  int num_decks = 3;;
   Game game(num_decks);
 
   cout << "Welcome to the game of blackjack!" << endl;
@@ -32,27 +34,17 @@ int main() {
 
   cout << "Thank you for playing!" << endl;
 
+  
   return 0;
 }
 
 
 bool check_play_again() {
 
-  char input = ' ';
-
-  while (input != 'y' && input != 'n') {
-    cout << "Would you like to keep playing? (y/n) " << endl;
-    cin >> input;
-  }
-  if (input == 'y') {
+  string prompt = "Would you like to keep playing? (y/n) ";
+  char play_again = get_y_or_n_from_user(prompt);
+  if (play_again == 'y')
     return true;
-  }
-  else if (input == 'n') {
+  else
     return false;
-  }
-  else {
-    cout << "Please enter y or n" << endl;
-  }
-
-  return false;
 }

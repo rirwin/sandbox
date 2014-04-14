@@ -1,3 +1,6 @@
+#ifndef __CARD_DECK__
+#define __CARD_DECK__
+
 #include <iostream>
 #include <time.h>
 #include <vector>
@@ -5,9 +8,6 @@
 #include "card.hpp"
 
 using namespace std;
-
-#ifndef __CARD_DECK__
-#define __CARD_DECK__
 
 class CardDeck {
 
