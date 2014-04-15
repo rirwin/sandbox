@@ -58,14 +58,14 @@ int main() {
   for (int num_decks_i = 1; num_decks_i < 10; num_decks_i++) {
     CardDeckTester *d = new CardDeckTester(num_decks_i);
     if (d->deck_init_tester() == 0)
-      cout << "Passed deck init tester" << endl;
+      cout << "Passed deck init test" << endl;
     else
-      cout << "Failed deck init tester" << endl;
+      cout << "Failed deck init test" << endl;
 
     if (d->deal_tester() == 0)
-      cout << "Passed deal tester" << endl;
+      cout << "Passed deal test" << endl;
     else
-      cout << "Failed deal tester" << endl;
+      cout << "Failed deal test" << endl;
 
 
     delete d;
