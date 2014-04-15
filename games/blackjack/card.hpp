@@ -25,7 +25,7 @@ public:
       cerr << "Invalid suit: "<< suit_ << endl;
       throw("Invalid suit");
     }
-    if (level_ < 1 && level > 13) {
+    if (level_ < 1 || level_ > 13) {
       cerr << "Invalid level: "<< level_ << endl;
       throw("Invalid level"); 
     }
@@ -34,11 +34,11 @@ public:
     card_state = DECK;
   }
 
-  void set_card_state(Card::card_state_enum state) {
+  void set_state(Card::card_state_enum state) {
     card_state = state;
   }
 
-  card_state_enum get_card_state() {
+  card_state_enum get_state() {
     return card_state;
   }
   
@@ -71,6 +71,18 @@ public:
       cout << 'Q' << suit;
     else if (level == 13)
       cout << 'K' << suit;
+  }
+
+  void print_state() {
+    switch (card_state) {
+    case Card::DECK: cout << "Dealer's deck" << endl; break;
+    case Card::DEALER_FACE_DOWN: cout << "Dealer's hand face down" << endl; break;
+    case Card::DEALER_FACE_UP: cout << "Dealer's hand face up" << endl; break;
+    case Card::PLAYER_FACE_UP: cout << "Player's hand face up" << endl; break;
+    case Card::DISCARD: cout << "Discard pile" << endl; break;
+    default:
+      cout << "Card in invalid state" << endl;
+    }
   }
 
 protected:

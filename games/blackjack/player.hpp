@@ -59,7 +59,7 @@ public:
 
   void print_cards() {
     for (int i = 0; i < cards.size(); i++) {
-      if (cards[i]->get_card_state() == Card::DEALER_FACE_DOWN)
+      if (cards[i]->get_state() == Card::DEALER_FACE_DOWN)
 	cout << "[]";
       else
 	cards[i]->print();
@@ -87,15 +87,20 @@ public:
       cout << "Error: The player has no hole card" << endl;
     }
     else if (player_type == Player::DEALER) {
-      cards[0]->set_card_state(Card::DEALER_FACE_UP);
+      cards[0]->set_state(Card::DEALER_FACE_UP);
     }
   }
 
   void discard_cards() {
     for (int i = 0; i < cards.size(); i++) 
-      cards[i]->set_card_state(Card::DISCARD);
+      cards[i]->set_state(Card::DISCARD);
     cards.clear();
   }
+
+  int get_num_cards() {
+    return cards.size();
+  }
+
 
 protected:
 

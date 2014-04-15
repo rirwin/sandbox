@@ -59,7 +59,7 @@ public:
       return;
     }
     dealer_turn();
-    result = get_result();
+    result = get_result(player->get_hand_value(), dealer->get_hand_value());
 
     handle_result(result, bet);
     discard_cards();
@@ -144,9 +144,8 @@ protected:
     }
   }
 
-  Game::hand_result_enum get_result() {
-    int player_hand_value = player->get_hand_value();
-    int dealer_hand_value = dealer->get_hand_value();
+  Game::hand_result_enum get_result(int player_hand_value, int dealer_hand_value) {
+
     if (player_hand_value > dealer_hand_value || dealer_hand_value > 21) 
       return Game::PLAYER_WINS;
     else if (player_hand_value < dealer_hand_value || player_hand_value > 21) 
@@ -208,7 +207,6 @@ protected:
       return;
     }
   }
-
 
 
   void handle_player_bust(int bet) {

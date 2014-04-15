@@ -13,7 +13,8 @@ class CardDeck {
 
 public:
 
-  CardDeck(int num_decks) {
+  CardDeck(int num_decks_) {
+    num_decks = num_decks_;
     add_cards(num_decks);
     srand(time(NULL));
     shuffle();
@@ -24,7 +25,7 @@ public:
     if (next_card_idx == cards.size())
       return NULL;
     Card* next_card = &cards[next_card_idx];
-    next_card->set_card_state(state);
+    next_card->set_state(state);
     next_card_idx++;
     return next_card;
   }
@@ -40,7 +41,7 @@ public:
       Card tmp = cards[i];
       cards[i] = cards[j];
       cards[j] = tmp;
-      cards[i].set_card_state(Card::DECK);
+      cards[i].set_state(Card::DECK);
     }
     next_card_idx = 0;
   }
@@ -50,6 +51,9 @@ protected:
 
   // collection of cards
   vector<Card> cards;
+
+  // number of 52-card decks
+  int num_decks;
 
   // next card to be dealt
   int next_card_idx;
@@ -65,7 +69,12 @@ protected:
 
   void add_suit_of_deck(char s) {
     for (int i = 1; i < 14; i++) {
-      cards.push_back(Card(s,i));
+      try {
+	cards.push_back(Card(s,i));
+      }
+      catch (char const *err_str) {
+	cout << *err_str << endl;
+      }
     }
   }
 
@@ -77,7 +86,6 @@ protected:
     }
     cout << " Done printing cards " << endl;
   }
-
 
 };
 
