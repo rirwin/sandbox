@@ -27,10 +27,10 @@ test_input_helper: $(TEST_DIR)/test_input_helper.cpp
 	$(CC) $< -o $(TEST_DIR)/$@
 
 clean:
-	rm blackjack
-	rm $(TEST_DIR)/test_card
-	rm $(TEST_DIR)/test_card_deck
-	rm $(TEST_DIR)/test_player
-	rm $(TEST_DIR)/test_game
-	rm $(TEST_DIR)/test_input_helper
+	-rm blackjack
+	-rm $(TEST_DIR)/test_card
+	-rm $(TEST_DIR)/test_card_deck
+	-rm $(TEST_DIR)/test_player
+	-rm $(TEST_DIR)/test_game
+	-rm $(TEST_DIR)/test_input_helper
 
