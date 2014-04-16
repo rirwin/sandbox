@@ -36,6 +36,8 @@ public:
     return 0;
   }
 
+  // make sure the dealer never has a hand < 17 
+  // dealer will always hit if <17 and either bust or be 21 or less
   int test_dealer_logic() {
     
     for (int test_i = 0; test_i < 1000; test_i++) {
@@ -74,6 +76,8 @@ public:
 };
 
 int main() {
+
+  cout <<"STARTING GAME TESTS ----------------" << endl;
 
   GameTester *gt;
   int num_decks = 3;

@@ -80,6 +80,9 @@ int test_card_init1() {
 
 // Doesn't need to be inside a CardTest class
 int test_card_level_value_translation() {
+
+  cout <<"STARTING CARD TESTS ----------------" << endl;
+
   Card *c = NULL;
   for (int i = 1; i < 14; i++) {
     c = new Card('H',i);

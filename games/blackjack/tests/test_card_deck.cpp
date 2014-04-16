@@ -55,6 +55,8 @@ public:
   
 int main() {
 
+  cout <<"STARTING CARD DECK TESTS ----------------" << endl;
+
   for (int num_decks_i = 1; num_decks_i < 10; num_decks_i++) {
     CardDeckTester *d = new CardDeckTester(num_decks_i);
     if (d->deck_init_tester() == 0)

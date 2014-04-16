@@ -214,6 +214,8 @@ public:
   
 int main() {
 
+  cout <<"STARTING PLAYER TESTS ----------------" << endl;
+
   PlayerTester *pt;
 
   // Test initial chip count ------
