@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# do not recreate the database
+mysqlshow -u root <%= database_name %> | grep -q "^Database: <%= database_name %>"
+if [ "$?" = "0" ]; then
+  echo "<%= database_name %> database already exists"
+  exit 0
+fi
+
+echo "CREATE DATABASE <%= database_name %>" | mysql -u root
+echo "GRANT ALL ON <%= database_name %>.* TO vagrant@localhost IDENTIFIED BY '<%= mysql_password %>'" | mysql -u root
