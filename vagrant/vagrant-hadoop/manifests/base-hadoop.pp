@@ -28,7 +28,7 @@ file { "/root/.ssh":
 
 file {
   "/root/.ssh/id_rsa":
-  source => "puppet:///modules/hadoop/hadoop_id_rsa",
+  source => "puppet:///modules/hadoop_0_20_2/hadoop_id_rsa",
   mode => 600,
   owner => root,
   group => root,
@@ -37,7 +37,7 @@ file {
  
 file {
   "/root/.ssh/id_rsa.pub":
-  source => "puppet:///modules/hadoop/hadoop_id_rsa.pub",
+  source => "puppet:///modules/hadoop_0_20_2/hadoop_id_rsa.pub",
   mode => 644,
   owner => root,
   group => root,
