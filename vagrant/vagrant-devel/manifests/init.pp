@@ -19,4 +19,5 @@ class devel {
   include "aptitude"
   include "emacs"
   include "mysql"
+  include "mongodb"
 }
