@@ -1,4 +1,4 @@
-include hadoop
+include hadoop_0_20_2
 
 group { "puppet":
   ensure => "present",
