@@ -17,7 +17,7 @@ class hadoop_0_20_2 {
 
 file {
   "${hadoop_home}-0.20.2/conf/slaves":
-  source => "puppet:///modules/hadoop/slaves",
+  source => "puppet:///modules/hadoop_0_20_2/slaves",
   mode => 644,
   owner => root,
   group => root,
@@ -26,7 +26,7 @@ file {
 
 file {
   "${hadoop_home}-0.20.2/conf/masters":
-  source => "puppet:///modules/hadoop/masters",
+  source => "puppet:///modules/hadoop_0_20_2/masters",
   mode => 644,
   owner => root,
   group => root,
@@ -35,7 +35,7 @@ file {
 
 file {
   "${hadoop_home}-0.20.2/conf/core-site.xml":
-  source => "puppet:///modules/hadoop/core-site.xml",
+  source => "puppet:///modules/hadoop_0_20_2/core-site.xml",
   mode => 644,
   owner => root,
   group => root,
@@ -44,7 +44,7 @@ file {
  
 file {
   "${hadoop_home}-0.20.2/conf/mapred-site.xml":
-  source => "puppet:///modules/hadoop/mapred-site.xml",
+  source => "puppet:///modules/hadoop_0_20_2/mapred-site.xml",
   mode => 644,
   owner => root,
   group => root,
@@ -53,7 +53,7 @@ file {
  
  file {
   "${hadoop_home}-0.20.2/conf/hdfs-site.xml":
-  source => "puppet:///modules/hadoop/hdfs-site.xml",
+  source => "puppet:///modules/hadoop_0_20_2/hdfs-site.xml",
   mode => 644,
   owner => root,
   group => root,
@@ -62,7 +62,7 @@ file {
 
 file {
   "${hadoop_home}-0.20.2/conf/hadoop-env.sh":
-  source => "puppet:///modules/hadoop/hadoop-env.sh",
+  source => "puppet:///modules/hadoop_0_20_2/hadoop-env.sh",
   mode => 644,
   owner => root,
   group => root,
