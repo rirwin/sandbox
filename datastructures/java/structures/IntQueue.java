@@ -1,7 +1,7 @@
 package structures;
 import java.util.*;
 
-public class IntQueue<T> {
+public class IntQueue {
 
     // array container
     private int[] a;
@@ -12,6 +12,7 @@ public class IntQueue<T> {
     // size of queue
     private int s;
 
+    // number of items in queue
     private int numEnqueued;
 
     public IntQueue(int s) {
@@ -22,9 +23,13 @@ public class IntQueue<T> {
         this.numEnqueued = 0;
     }
 
+    public int getNumEnqueued() {
+        return this.numEnqueued;
+    }
+
     public void push(int x) {
         if ( j == i && numEnqueued > 0 ){
-            System.out.println("Queue is full");
+            //System.out.println("Queue is full");
         }
         else {
             // place at tail, inc
@@ -50,7 +55,7 @@ public class IntQueue<T> {
 
     public int front() {
         if (numEnqueued == 0) {
-            System.out.println("front(): Empty Queue");
+            throw new NoSuchElementException();
         }
         return a[i];
     }
