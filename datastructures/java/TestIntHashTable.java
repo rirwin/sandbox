@@ -7,11 +7,11 @@ public class TestIntHashTable {
         int tableSize = 4093; // large prime number
         IntHashTable iht = new IntHashTable(tableSize);
 
-        int key1 = 3, value1 = 12;
-        int key2 = 12, value2 = 143;
-        int key3 = tableSize+12, value3 = 99;
-        int key4 = 12, value4 = 1;
-        int key5 = tableSize+12, value5 = 2;
+        int key1 = 3,              value1 = 12;
+        int key2 = 12,             value2 = 143;
+        int key3 = tableSize+12,   value3 = 99;
+        int key4 = 12,             value4 = 1;
+        int key5 = tableSize+12,   value5 = 2;
         int key6 = 2*tableSize+12, value6 = 21;
             
         iht.put(key1,value1); 
