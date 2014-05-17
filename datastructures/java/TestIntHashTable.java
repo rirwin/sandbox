@@ -8,6 +8,7 @@ public class TestIntHashTable {
         IntHashTable iht = new IntHashTable(tableSize);
         iht.printTable();
         iht.insert(3,12);
+        iht.insert(13,90);
         iht.printTable();
     }
 }

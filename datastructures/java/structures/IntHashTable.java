@@ -8,23 +8,34 @@ public class IntHashTable {
 
     private int size;
 
+    private int collisionCnt;
+
     public IntHashTable(int size) {
         this.size = size;
         this.arr = new IntNode[size];
+        this.collisionCnt = 0;
     }
 
     public void insert(int key, int value) {
         int insPos = hashFunction(key);
         IntNode intNode = new IntNode(key, value);
-        intNode.next = arr[insPos];
+        if (arr[insPos] != null) {
+            intNode.next = arr[insPos];
+            this.collisionCnt++;
+        }
         arr[insPos] = intNode;
     }
 
     public void printTable() {
         System.out.println("Table:");
-        for (int i = 0; i < size; i++) 
-            if (arr[i] != null)
-                System.out.println(arr[i].getKey() + " " + arr[i].getValue());
+        for (int i = 0; i < size; i++) {
+            IntNode node = arr[i];
+            while (node != null) {
+                System.out.println(node.getKey() + " " + node.getValue());
+                node = node.next;
+            }
+        }
+        System.out.println("Number of collisions: " + this.collisionCnt);
     }
 
     private int hashFunction(int key) {
