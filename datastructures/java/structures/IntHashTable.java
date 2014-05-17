@@ -6,6 +6,9 @@ public class IntHashTable {
     // internal array
     private IntNode arr[];
 
+    // used for mod function
+    // Should be a large prime number 
+    // Should not be a power of 2 but can be close to a power of 2
     private int size;
 
     private int collisionCnt;
