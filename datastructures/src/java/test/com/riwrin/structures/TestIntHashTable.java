@@ -1,4 +1,4 @@
-import structures.IntHashTable;
+package com.rirwin.structures;
 
 public class TestIntHashTable {
 

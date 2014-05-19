@@ -1,4 +1,5 @@
-package structures;
+package com.rirwin.structures;
+
 import java.util.*;
 
 public class IntQueue {

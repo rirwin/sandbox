@@ -1,4 +1,4 @@
-import structures.IntQueue;
+package com.rirwin.structures;
 
 public class TestIntQueue {
 
