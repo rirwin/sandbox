@@ -1,2 +1,7 @@
 # All output target folders
 **/target/*
+
+**/.classpath
+**/.project
+**/.settings/
+/target
