@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style type="text/css">
+#results {
+    margin: 0 auto;
+    width: 980px;
+}
+</style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  var u = "https://graph.facebook.com/oauth/access_token?type=client_cred&client_id=1496562830571575&client_secret=79563d2c1152d2baaa99d7fe5cbafe11";
+  var ul = "https://graph.facebook.com/search?q='awesome%20food'&local=en_US&limit=10&";
+  $.get(u, function(auth_token) {
+    $.ajax({
+      dataType: "jsonp",
+      url: ul+auth_token,
+      success: function(res) {
+        if (res.data.length) {
+          $.each(res.data, function(i, item) {
+            var html = "<div>";
+            html += "<p>Facebook User: " + item.from.name + "</p>";
+            html += "<p>Status: " + item.message + "</p>";
+            html += "</div>";
+            $("#results").append(html);
+          });
+        }
+      }
+    });
+  });
+});
+</script>
