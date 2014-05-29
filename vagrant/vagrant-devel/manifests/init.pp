@@ -19,5 +19,6 @@ class devel {
   include "aptitude"
   include "emacs"
   include "mysql"
+  include "java7"
   include "mongodb"
 }
