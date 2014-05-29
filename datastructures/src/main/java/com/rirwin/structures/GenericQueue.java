@@ -1,65 +1,101 @@
 package com.rirwin.structures;
 
-import java.util.Vector;
 import java.util.NoSuchElementException;
 
 public class GenericQueue<T> {
 
-    private final Vector<T> v;
+    // head node
+    private Node<T> head;
 
-    private final int s;
+    // tail node
+    private Node<T> tail;
 
+    // size of queue
+    private final int size;
+
+    // number of items in queue
     private int numEnqueued;
 
-    public GenericQueue(int queueSize) {
-        v = new Vector<T>();
-        s = queueSize;
+    public GenericQueue(final int s) {
+        head = null;
+        tail = null;
         numEnqueued = 0;
+        this.size = s;
     }
 
     public int getNumEnqueued() {
         return numEnqueued;
     }
 
-    public void push(T elem) {
+    public void push(final T x) {
 
-        if (v.size() == s) {
-            //System.out.println("Queue is full");
+        if (numEnqueued == size) {
+            return; // Queue full
+        }
+
+        Node<T> node = new Node<T>(x);
+
+        if (tail == null) { // empty queue
+            head = node;
+            tail = node;
         }
         else {
-            v.add(elem);
-            numEnqueued++;
+            tail.next = node;
+            tail = tail.next;
         }
-    }    
+        numEnqueued++;
+    }
 
     public void printContents() {
+
+        Node<T> node = head;
         System.out.print("Contents: ");
-        for (int ii = 0; ii < numEnqueued; ii++) {
-            System.out.print(v.get(ii) + " ");
+
+        while(node != null) {
+            System.out.print(node.value + " ");
+            node = node.next;
         }
+
         System.out.println();
     }
 
     public void printQueue() {
+        System.out.print("Queue: ");
         printContents();
     }
 
     public T front() {
-        if (numEnqueued == 0) {
+        if (head == null) {
             throw new NoSuchElementException();
         }
-        else {
-            return v.get(0);
-        }
+        return head.value;
     }
 
     public void pop() {
-        if (numEnqueued == 0) {
+
+        if (head == null) {
             System.out.println("pop() Empty Queue");
         }
-        else {;
-            v.remove(0);
+        else {
+            Node<T> node = head;
+            head = head.next;
+            node = null;
             numEnqueued--;
+        }
+    }
+
+    private class Node<T> {
+        public T value;
+        public Node<T> next;
+
+        public Node() {
+            value = null;
+            next = null;
+        }
+
+        public Node(T v) {
+            value = v;
+            next = null;
         }
     }
     
