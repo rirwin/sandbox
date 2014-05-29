@@ -7,9 +7,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class IntHashTableTest {
-
+    
 	@Test
-	public void testHashTable() {
+	public void testIntHashTable() {
 
 		final int tableSize = 4093; // large prime number
 		final IntHashTable iht = new IntHashTable(tableSize);
