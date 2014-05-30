@@ -1,6 +1,6 @@
 import turtle
 
-max_depth = 11
+max_depth = 9
 turn_scalar = 0.1
 length_scalar = 1.3
 turtle.width(3)
@@ -26,4 +26,4 @@ turtle.up()
 turtle.backward(250)
 turtle.down()
 tree(max_depth,150)
-#turtle.exitonclick()
+turtle.exitonclick()
