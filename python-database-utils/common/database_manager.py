@@ -98,7 +98,7 @@ class database_manager:
     @wrappers.database_function_handler
     def simple_insert_query(self, cursor, table_str, values_str):
         cursor.execute("insert into " + table_str + " values " + values_str) 
-
+        
 
     @staticmethod
     @wrappers.logger
@@ -128,6 +128,10 @@ if '__main__' == __name__:
     dm = database_manager(db_config_path)
 
     dm.reset_all_tables()
+    print dm.simple_select_query(dm.conn, "memory_report", "*")
+    print dm.simple_insert_query(dm.conn, "memory_report", "('id1234', 1024124512, 8000)")
+    print dm.simple_select_query(dm.conn, "memory_report", "*")    
+    print dm.simple_insert_query(dm.conn, "memory_report", "('id5678', 1134124512, 4000)")
     print dm.simple_select_query(dm.conn, "memory_report", "*")
 
     print "Program continued to end"
