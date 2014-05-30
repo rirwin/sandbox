@@ -7,9 +7,8 @@ node default {
     require => Exec["aptitude_update"],
   }
 
-  $database_name = "devel"
-
-  $mysql_password = "mysql"
+  $db_name = "devel"
+  $db_password = "pass"
 
   include "devel"
 }
@@ -19,6 +18,7 @@ class devel {
   include "aptitude"
   include "emacs"
   include "mysql"
+  include "postgresql"
   include "java7"
   include "mongodb"
 }
