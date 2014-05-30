@@ -84,6 +84,22 @@ class database_manager:
         cursor.execute("create table " + table_str + schema_str) 
 
 
+    @wrappers.logger
+    @wrappers.database_function_handler
+    def simple_select_query(self, cursor, table_str, selected_columns_str, where_cond_str=""):
+        if where_cond_str is not "":
+            cursor.execute("select " + selected_columns_str + " from " + table_str + " where " + where_cond_str) 
+        else:
+            cursor.execute("select " + selected_columns_str + " from " + table_str) 
+        #return cursor.fetchall()[0][0]
+        return cursor.fetchall()
+
+    @wrappers.logger
+    @wrappers.database_function_handler
+    def simple_insert_query(self, cursor, table_str, values_str):
+        cursor.execute("insert into " + table_str + " values " + values_str) 
+
+
     @staticmethod
     @wrappers.logger
     @wrappers.general_function_handler
@@ -112,5 +128,6 @@ if '__main__' == __name__:
     dm = database_manager(db_config_path)
 
     dm.reset_all_tables()
+    print dm.simple_select_query(dm.conn, "memory_report", "*")
 
     print "Program continued to end"
