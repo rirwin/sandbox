@@ -1,0 +1,7 @@
+{
+    "memory_report": [
+        ["id","varchar"],
+        ["ts","int8"],
+        ["v","int8"]
+    ]
+}

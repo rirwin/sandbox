@@ -2,7 +2,8 @@ import psycopg2
 import sys
 import ConfigParser
 import json
-
+import logging
+logging.basicConfig(level=logging.INFO)
 
 def dbwrap(func):
     """Wrap a function in an idomatic SQL transaction.  The wrapped function
@@ -12,6 +13,7 @@ def dbwrap(func):
 
     def new_func(conn, *args, **kwargs):
 
+
         retval = None
         cursor = conn.cursor()
         try:
@@ -20,7 +22,8 @@ def dbwrap(func):
             cursor.execute("COMMIT")
         except Exception, e:
             cursor.execute("ROLLBACK")
-            print e
+            logging.info(str(e) + " printed via logging.info")
+            logging.warning(str(e) + " printed via logging.warning")
             #raise
         finally:
             cursor.close()
@@ -97,10 +100,10 @@ class database_manager:
 if '__main__' == __name__:
 
     # Full path (incl. file name) to database credentials
-    db_conn_path = "../conf/db_creds.conf"
+    db_conn_path = "../conf/database.conf"
 
     # Full path to database schema
-    db_schema_path = "../conf/db_schema.json"
+    db_schema_path = "../conf/database_schema.json"
 
     dm = database_manager(db_conn_path, db_schema_path)
 
