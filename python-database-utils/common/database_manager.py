@@ -45,21 +45,24 @@ def do_something(cursor, val1=1, val2=2):
 
 class database_manager:
 
-    def __init__(self, db_config_path, db_schema_path):
+    def __init__(self, db_config_path):
 
         self.load_config(db_config_path)
-        self.schema_loader(db_schema_path)
 
 
     def load_config(self, db_config_path):
         config = ConfigParser.ConfigParser()
         config.read(db_config_path)
         
+        # set up postgreSQL
         dbprog = config.get("main", "dbprog")
         if dbprog == "postgresql":        
             self.init_psql_conn(config)
+            self.schema_loader(config)
 
         logging.basicConfig(level = config.get("main", "loglevel") )
+
+
 
     # uncomment later and make this part of a package
     # @general_exception_handler_wrapper 
@@ -73,8 +76,9 @@ class database_manager:
             sys.exit(1)
         
 
-    def schema_loader(self, db_schema_path):
+    def schema_loader(self, config):
         try:
+            db_schema_path = config.get("main", "schemafile")
             self.schema_dict = json.load(open(db_schema_path))
         except Exception, e:
             print("%s \nCannot load schema file %s. \n Exiting.\n" % (e, db_schema_path))
@@ -102,12 +106,9 @@ class database_manager:
 if '__main__' == __name__:
 
     # Full path (incl. file name) to database credentials
-    db_conn_path = "../conf/database.conf"
+    db_config_path = "../conf/database.conf"
 
-    # Full path to database schema
-    db_schema_path = "../conf/database_schema.json"
-
-    dm = database_manager(db_conn_path, db_schema_path)
+    dm = database_manager(db_config_path)
 
     print do_something(dm.conn)
 
