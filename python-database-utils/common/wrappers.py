@@ -25,6 +25,8 @@ class general_function_handler(object):
             message = template.format(type(e).__name__, e.args)
             logging.exception(message)
             retval = None
+            # probably should sys.exit(1) for certain exception types
+            # like AttributeError, KeyError, NameError
         return retval
     
 class database_function_handler(object):
