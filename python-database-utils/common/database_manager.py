@@ -94,6 +94,7 @@ class database_manager:
         #return cursor.fetchall()[0][0]
         return cursor.fetchall()
 
+
     @wrappers.logger
     @wrappers.database_function_handler
     def simple_insert_query(self, cursor, table_str, values_str):

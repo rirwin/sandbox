@@ -1,5 +1,5 @@
 import logging
-
+import sys
 
 class logger(object):
     def __init__(self, func):
@@ -26,7 +26,8 @@ class general_function_handler(object):
             logging.exception(message)
             retval = None
             # probably should sys.exit(1) for certain exception types
-            # like AttributeError, KeyError, NameError
+            # like AttributeError, KeyError, NameError, ProgrammingError
+            sys.exit(1)
         return retval
     
 class database_function_handler(object):
@@ -49,6 +50,7 @@ class database_function_handler(object):
             retval = None
         finally:
             cursor.close()
+            sys.exit(1)
 
         return retval
     
