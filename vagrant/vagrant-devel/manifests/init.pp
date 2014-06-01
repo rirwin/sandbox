@@ -21,4 +21,5 @@ class devel {
   include "postgresql"
   include "java7"
   include "mongodb"
+  include "python_extras"
 }
