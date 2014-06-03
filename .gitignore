@@ -2,6 +2,8 @@
 *.slo
 *.lo
 *.o
+*.class
+*.pyc
 
 # Compiled Dynamic libraries
 *.so
@@ -11,3 +13,8 @@
 *.lai
 *.la
 *.a
+
+# Junk
+*~
+\#*
+*.vagrant
