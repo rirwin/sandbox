@@ -3,16 +3,16 @@
 while getopts "f:d:wx" opt; do
   case $opt in
     f)
-      FC_FILE=$OPTARG
+      FILE=$OPTARG
       ;;
     d) 
-      FC_FILE=$OPTARG
+      DIR=$OPTARG
       ;;
     x)
-      FC_EXEC_TEST=1
+      EXEC_TEST=1
       ;;
     w)
-      FC_WRITE_TEST=1
+      WRITE_TEST=1
       ;;
     :)
       echo "Option -$OPTARG requires an argument." >&2
@@ -21,23 +21,44 @@ while getopts "f:d:wx" opt; do
   esac
 done
 
-if [ -z "$FC_FILE" ]; then
+if [ -z "$FILE" ] && [ -z "$DIR" ]; 
+then
   echo "You need to pass -f <filename> or -d <dirname>"
   exit
 fi
 
-
-if [ -f "$FC_FILE" ] 
+if [ -n "$FILE" ] 
 then
-  echo "$FC_FILE exists"
-else
-  echo "$FC_FILE does not exist"
-  exit
+  if [ -f "$FILE" ] 
+  then
+    echo "File $FILE exists"
+  else
+    echo "File $FILE does not exist"
+    exit
+  fi
 fi
 
-if [ -z "$FC_EXEC_TEST" ]
+if [ -n "$DIR" ]
+then 
+  if [ -d "$DIR" ] 
   then
-  if [ `stat -c %A $FILE | sed 's/...\(.\).\+/\1/'` == "x" ] 
+    echo "Directory $DIR exists"
+  else
+    echo "Directory $DIR does not exist"
+    exit
+  fi
+fi
+
+if [ -n "$FILE" ] 
+then 
+  FILE_OR_DIR=$FILE
+else
+  FILE_OR_DIR=$DIR
+fi
+
+if [ -n "$EXEC_TEST" ]
+then
+  if [ `stat -c %A $FILE_OR_DIR | sed 's/...\(.\).\+/\1/'` == "x" ] 
   then
     echo "Owner has execute permission"
   else
@@ -45,9 +66,12 @@ if [ -z "$FC_EXEC_TEST" ]
   fi
 fi
 
-
-
-echo $FC_FILE
-echo $FC_EXEC_TEST
-echo $FC_WRITE_TEST
-
+if [ -n "$WRITE_TEST" ] 
+then
+  if [ -w "$FILE_OR_DIR" ]
+  then
+    echo "Owner has write permission"
+  else
+    echo "Owner does not have write permission"
+  fi
+fi 
