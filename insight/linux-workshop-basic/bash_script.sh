@@ -101,11 +101,3 @@ do
     echo $result > out/foo-${result}
     #sleep 1
 done
-x=`ls in_files`
-cat $x
-for f in $x
-do
-  if [[ "$f" == *.txt ]]; then
-  fi
-  cat in_files/$f
-done
