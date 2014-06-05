@@ -73,3 +73,39 @@ if [[ " ${args[*]} " == *"-z"* ]]; then
 else
   echo "Missing argument -z, but that's okay"
 fi
+
+for i in {1..10}
+do
+  echo "$i"
+done
+
+x=`ls /`
+echo $x
+
+# bash function that returns
+function get_timestamp() {
+    local __resultvar=$1
+    local myresult=`date +%Y%m%d-%H%M%S`
+    eval $__resultvar="'$myresult'"
+}
+
+get_timestamp result
+echo "I got $result"
+
+set -x
+date -d "5 days ago"
+
+for i in {1..4}
+do 
+    get_timestamp result
+    echo $result > out/foo-${result}
+    #sleep 1
+done
+x=`ls in_files`
+cat $x
+for f in $x
+do
+  if [[ "$f" == *.txt ]]; then
+  fi
+  cat in_files/$f
+done
