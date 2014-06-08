@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+from operator import itemgetter
 import sys
 import json
 
@@ -9,12 +9,16 @@ for line in sys.stdin:
     line = line.strip()
 
     # emit login id
-    #try:
-    json_dict = json.loads(line)
-    print '%s\t%s' % (json_dict["actor_attributes"]["login"], 1)
-
+    try:
+        json_dict = json.loads(line)
+        print '%s\t%s' % (json_dict["actor_attributes"]["login"], 1)
+    except:
+        continue
 
     """
+
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming.jar -file /home/ec2-user/ryan/sandbox/insight/project/login_mapper.py    -mapper /home/ec2-user/ryan/sandbox/insight/project/login_mapper.py -file /home/ec2-user/ryan/sandbox/insight/project/reducer.py   -reducer /home/ec2-user/ryan/sandbox/insight/project/reducer.py -input ryan/github/2012-04-11-15-lines.json -output ryan/github/out-8jun14-2
+
     # split the line into words
     words = line.split()
     # increase counters
