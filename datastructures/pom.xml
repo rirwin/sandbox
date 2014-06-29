@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.rirwin.structures</groupId>
-	<artifactId>structures</artifactId>
+	<groupId>com.rirwin</groupId>
+	<artifactId>java-testing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
@@ -36,10 +36,6 @@
 				<version>2.17</version>
 			</plugin>
 		</plugins>
-
-		<pluginManagement>
-			<plugins></plugins>
-		</pluginManagement>
 	</build>
 
 	<!-- External project dependencies -->
