@@ -1,0 +1,34 @@
+
+
+==== Pre requsities ====
+
+python and  c++ 
+
+Install python's numpy package
+
+sudo apt-get install python-numpy  
+
+Install GNU Linear programming kit for checking of optimality. For
+ubuntu the software is obtainable by:
+
+sudo apt-get install glpk  
+
+
+==== Build ====
+
+Make sure you run `make` to compile stakeout.cpp file
+
+
+==== Execution ====
+
+== Automated ==
+To run automated scripting of many runs comparing the recursive,
+dynamic approach to optimal type: 
+
+python stakeout_driver.py
+
+== Manual ==
+To run the cpp file by hand type:
+
+./stakeout    # with no arguments for default test
+./stakeout 20 50 10 1 5   # with what args desired
