@@ -46,5 +46,15 @@ while True:
     except: 
         break # exception on loading json to end loop
 
-pprint(arr_of_dicts)
+ 
+print len(arr_of_dicts)
+for jd in arr_of_dicts:
+    if 'actor_attributes' in jd:
+        jd_aa = jd['actor_attributes']
+        if 'name' in jd_aa:
+            print jd_aa['name']
+        elif 'login' in jd_aa:
+            print jd_aa['login']
+    
+
 

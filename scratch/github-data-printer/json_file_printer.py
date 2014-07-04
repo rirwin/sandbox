@@ -5,6 +5,7 @@ import sys
 
 if len(sys.argv) != 2:
     print "you need 1 argument to be path to the file (full or relative)"
+    sys.exit(1)
 
 file_path = sys.argv[1]
 print "opening",file_path
