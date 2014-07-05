@@ -11,23 +11,31 @@
   (- x)
   x))
 
-
 (defn factorial [n]
   (reduce * (range 1 (inc n))))
 
-(println "factorial" (factorial 4))
+(defn summation [n] 
+ (reduce + (range 1 (inc n))))
+
+; test to see if calling function properly
+(defn mysort [ar]
+ (sort ar))
+
+(def a[3,5,1,3,2,6,1])
+(println (mysort a))
 
 
-;(println (+ 4 (add 1 2)))
+(println (map #(+ % %) [0 1 2 3 4 5 6]))
 
-(defn fib-seq [a] 
- (reduce + (range 1 (inc a))))
+(println "4 factorial" (factorial 4))
 
-;fib-seq (- a 1)))
-;   (+ a (fib-seq (- a 1)))))
-
-(println "Fibonacci" (fib-seq 4))
+(println "summation (x=1,x=4)" (summation 4))
 
 
-;(println (abs -1))
-;(println (abs (+ 4 3)))
+
+(loop [x 10]
+ (when (> x 1)
+  (println x)
+   (recur (- x 2))))
+
+
