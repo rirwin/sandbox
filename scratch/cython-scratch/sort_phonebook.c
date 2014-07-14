@@ -11,7 +11,7 @@ int main() {
   FILE *ifp; // in file pointer
   FILE *ofp; // out file pointer
   char infile_name[] = "unsorted_phonebook.txt";
-  char outfile_name[] = "sorted_phonebook.txt";
+  char outfile_name[] = "sorted_phonebook_c.txt";
   
   int bv_size = 312500; // 10M / 32 1-000-0000 (big enough for 7 digits
   int *ph_num;
@@ -57,11 +57,13 @@ int main() {
   for (idx = 0; idx < bv_size; idx++) {
 
     comp_int = 1;
-    for (bit = 0; bit < 32; bit++) {
-      if (comp_int & *(bvp + idx))
-        fprintf(ofp,"%d\n",idx*32+bit);
-      comp_int<<=1;
-    }
+    if (*(bvp + idx) > 0) { // small optimization
+      for (bit = 0; bit < 32; bit++) {
+        if (comp_int & *(bvp + idx))
+          fprintf(ofp,"%d\n",idx*32+bit);
+        comp_int<<=1;
+      }
+    } 
   }
 
   fclose(ifp);
