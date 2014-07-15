@@ -18,3 +18,8 @@ sort_phonebook_python.sort_phonebook()
 ct = time.time()
 print ct - lt, " seconds to sort in python"
 lt = ct
+
+os.system("java SortPhonebook")
+ct = time.time()
+print ct - lt, " seconds to sort in java"
+lt = ct
