@@ -2,8 +2,6 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.Scanner;
 
-
-
 class SortPhonebook {
 
     public static void main(String []args) {
