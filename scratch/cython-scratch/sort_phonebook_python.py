@@ -1,7 +1,8 @@
 import numpy
 def sort_phonebook():
     
-    bv_size = 321500 # 10M / 32 supports 0 - 9999999 (or ph:999-9999)
+    # 10M / 32 supports 0 - 9999999 (or ph:999-9999)
+    bv_size = 321500
     int_size = 32
 
     bit_vector = numpy.zeros(bv_size, dtype=numpy.uint32)

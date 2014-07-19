@@ -8,7 +8,8 @@ class SortPhonebook {
 
     public static void main(String []args) {
 
-        final int bv_size = 321500; // 10M / 32 supports up to ph:999-9999
+        // 10M / 32 supports up to ph:999-9999
+        final int bv_size = 321500; 
         final int int_size = 32;
         int comp_int = 0; // 32-bit int in java
 

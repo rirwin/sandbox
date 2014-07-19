@@ -13,7 +13,8 @@ int main() {
   char infile_name[] = "unsorted_phonebook.txt";
   char outfile_name[] = "sorted_phonebook_c.txt";
   
-  int bv_size = 312500; // 10M / 32 1-000-0000 (big enough for 7 digits
+  // 10M / 32 1-000-0000 (big enough for 7 digits)
+  int bv_size = 312500; 
   int *ph_num;
   int bit = 0;
   int idx = 0;

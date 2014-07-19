@@ -1,7 +1,7 @@
-import sys
 def sort_phonebook():
-    
-    DEF bv_size = 321500 # 10M / 32 supports 0 - 9999999 (or ph:999-9999)
+
+    # 10M / 32 supports 0 - 9999999 (or ph:999-9999)
+    DEF bv_size = 321500 
     DEF int_size = 32
 
     cdef int bit
