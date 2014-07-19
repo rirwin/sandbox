@@ -31,5 +31,5 @@ def sort_phonebook():
              if bit_vector[idx] > 0: # small optimization
                  for bit in xrange(int_size):
                      if comp_int & bit_vector[idx]:
-                         ofh.write(str(idx*32 + bit) + '\n')
+                         ofh.write(str(idx*int_size + bit) + '\n')
                      comp_int <<= 1    
