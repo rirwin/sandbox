@@ -1,9 +1,5 @@
 
-import numpy
-
 a = [1,5,2,-5,3,-9,1,4,-2,4,5,-4]
-
-
 
 def max_sub(a):
     cur_s = 0
