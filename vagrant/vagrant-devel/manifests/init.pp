@@ -16,10 +16,11 @@ node default {
 class devel {
 
   include "aptitude"
-  include "emacs"
+  include "vim"
   include "mysql"
   include "postgresql"
   include "java7"
   include "mongodb"
   include "python_extras"
+  include "tmux"
 }
